@@ -11,12 +11,19 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@sitecore-jss/sitecore-jss": "^11.0.2",
+    "@sitecore-jss/sitecore-jss-vue": "^11.0.2",
     "cross-env": "^5.2.0",
-    "nuxt": "^2.4.0",
     "micro": "^9.3.3",
-    "micro-route": "^2.5.0"
+    "micro-route": "^2.5.0",
+    "nuxt": "^2.4.0"
   },
   "devDependencies": {
+    "@sitecore-jss/sitecore-jss-cli": "^11.0.2",
+    "@sitecore-jss/sitecore-jss-manifest": "^11.0.2",
+    "@sitecore-jss/sitecore-jss-proxy": "^11.0.2",
+    "@sitecore-jss/sitecore-jss-update-package": "^11.0.2",
+    "@sitecore-jss/sitecore-pipelines": "^11.0.2",
     "nodemon": "^1.18.9"
   }
 }

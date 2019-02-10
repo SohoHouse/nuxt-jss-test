@@ -19,39 +19,11 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
-  /*
-  ** Customize the progress-bar color
-  */
   loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
-  css: [
-  ],
-
-  /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-  ],
-
-  /*
-  ** Nuxt.js modules
-  */
   modules: [
+    '@@/jss/nuxt-jss'
   ],
+  jss: {
 
-  /*
-  ** Build configuration
-  */
-  build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-
-    }
   }
 }
