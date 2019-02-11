@@ -1,56 +1,52 @@
 import Vue from 'vue'
 import { SitecoreJssPlaceholderPlugin } from '@sitecore-jss/sitecore-jss-vue'
 import componentFactory from '@@/temp/component-factory'
+import { mapState } from 'vuex'
 
 Vue.use(SitecoreJssPlaceholderPlugin, { componentFactory })
 
-const store = {
+const storeModule = {
   // default state
-  state: {
+  namespaced: true,
+  state: () => ({
     sitecoreContext: {
       pageEditing: false
     },
-    routeData: null
-  },
-  setSitecoreData(sitecoreData) {
-    if (!sitecoreData) return
-    const route = sitecoreData.sitecore && sitecoreData.sitecore.route
-    const context = (sitecoreData.sitecore && sitecoreData.sitecore.context) || {}
+    routeData: null,
+    config: {
+      sitecoreApiKey: '<%= options.sitecoreApiKey %>',
+      sitecoreApiHost: '<%= options.sitecoreApiHost %>',
+      jssAppName: '<%= options.jssAppName %>',
+      defaultLanguage: '<%= options.defaultLanguage %>',
+    }
+  }),
+  mutations: {
+    setSitecoreData(state, sitecoreData) {
+      if (!sitecoreData) return
+      const { sitecore: { route, context = {} } = {} } = sitecoreData
 
-    // Do not replace the original state object - the store and any components that use the store
-    // need to share a reference to the same object in order for mutations to be observed.
-    this.state.routeData = route
-    this.state.sitecoreContext = {
-      ...context,
-      routeName: route && route.name,
-      itemId: route && route.itemId
+      // Do not replace the original state object - the store and any components that use the store
+      // need to share a reference to the same object in order for mutations to be observed.
+      state.routeData = route
+      state.sitecoreContext = {
+        ...context,
+        routeName: route && route.name,
+        itemId: route && route.itemId
+      }
     }
   }
 }
 
-const config = {
-  sitecoreApiKey: '<%= options.sitecoreApiKey %>',
-  sitecoreApiHost: '<%= options.sitecoreApiHost %>',
-  jssAppName: '<%= options.jssAppName %>',
-  defaultLanguage: '<%= options.defaultLanguage %>',
-};
+Vue.mixin({
+  computed: mapState({
+    $jss: state => ({
+      store: state.jss,
+      componentFactory
+    })
+  })
+})
 
-const jssStore = {
-  // there may be other JSS plugins installed, merge existing properties
-  ...Vue.prototype.$jss,
-  config,
-  store,
-  sitecoreContext() {
-    // this is intended only as a convenience function for easier access to the current context.
-    return store.state.sitecoreContext
-  },
-  routeData() {
-    // this is intended only as a convenience function for easier access to the current routeData.
-    return store.state.routeData
-  }
-}
-
-export default (ctx, inject) => {
-  Vue.prototype.$jss = jssStore
-  inject('jss', jssStore)
+export default ({ store }, inject) => {
+  if (!store) return
+  store.registerModule('jss', storeModule)
 }

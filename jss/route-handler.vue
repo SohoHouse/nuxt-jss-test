@@ -1,7 +1,7 @@
 <template>
   <h1 v-if="notFound">Not Found</h1>
   <h1 v-else-if="loading">Loading</h1>
-  <placeholder v-else name="jss-main" :rendering="appState.routeData" />
+  <placeholder v-else name="jss-main" :rendering="routeData" />
 </template>
 
 <script>
@@ -21,7 +21,7 @@ import dataFetcher from './services/data-fetcher'
  * @param {string} language Language to get route data in (content language, e.g. 'en')
  * @param {dataApi.LayoutServiceRequestOptions} options Layout service fetch options
  */
-function getRouteData (config, route, language) {
+function fetchRouteData (config, route, language) {
   const fetchOptions = {
     layoutServiceConfig: { host: config.sitecoreApiHost },
     querystringParams: { sc_lang: language, sc_apikey: config.sitecoreApiKey },
@@ -39,11 +39,41 @@ function getRouteData (config, route, language) {
   })
 }
 
+async function updateRouteData ({ jss, route, commit, defaultLanguage }) {
+  let loading, notFound
+  let sitecoreRoutePath = route.params.sitecoreRoute || '/'
+  if (!sitecoreRoutePath.startsWith('/')) {
+    sitecoreRoutePath = `/${sitecoreRoutePath}`
+  }
+
+  const language = route.params.lang || jss.sitecoreContext.language || defaultLanguage
+  loading = true
+
+  // get the route data for the new route
+  const routeData = await fetchRouteData(jss.config, sitecoreRoutePath, language)
+  if (routeData !== null && routeData.sitecore.route) {
+    // Update the JSS store instance with the fetched data.
+    // This will signal the RouteHandler to update/re-render, as well as any components
+    // that are referencing the JSS store instance in their `data` object.
+    commit('jss/setSitecoreData', routeData)
+    notFound = false
+  } else {
+    commit('jss/setSitecoreData', routeData)
+    notFound = true
+  }
+  loading = false
+
+  return { loading, notFound }
+}
+
 export default {
   name: 'Route-Handler',
   computed: {
+    routeData () {
+      return this.$jss.store.routeData
+    },
     routeFields () {
-      return this.appState.routeData && this.appState.routeData.fields || {}
+      return this.routeData && this.routeData.fields || {}
     },
     pageTitle () {
       if (this.notFound) return 'Page Not Found'
@@ -62,28 +92,22 @@ export default {
       ]
     }
   },
-  data () {
-    const state = { notFound: true, defaultLanguage: this.$jss.config.defaultLanguage, loading: true }
-
-    // To take advantage of Vue's reactive data for tracking app state changes, we need
-    // to reference the same `state` object that the $jss store references in order
-    // for mutations to be observed.
-    // $jss is attached to the Vue instance via `SitecoreJssPlugin`.
-    const appState = this.$jss.store.state
+  async asyncData ({ route, store: { commit, state: { jss: $jss } } }) {
+    const state = { notFound: true, defaultLanguage: $jss.config.defaultLanguage, loading: true }
 
     // if the app state has routeData, we don't need to load it and don't need a loading screen
-    if (appState.routeData) {
+    if ($jss.routeData) {
       state.loading = false
     }
 
     // route path from vue router - if route was resolved, it's not a 404
-    if (this.$route !== null) {
+    if (route !== null) {
       state.notFound = false
     }
 
     // if we have an initial SSR state, and that state doesn't have a valid route data,
     // then this is a 404 route.
-    if (!appState.routeData) {
+    if (!$jss.routeData) {
       state.notFound = true
     }
 
@@ -91,20 +115,27 @@ export default {
     // set the default language (this makes the language of content follow the
     // Sitecore context language cookie)
     // note that a route-based language (i.e. /de-DE) will override this default; this is for home.
-    if (appState.sitecoreContext && appState.sitecoreContext.language) {
-      state.defaultLanguage = appState.sitecoreContext.language
+    if ($jss.sitecoreContext && $jss.sitecoreContext.language) {
+      state.defaultLanguage = $jss.sitecoreContext.language
     }
 
-    return { ...state, appState }
-  },
-  props: {
-    route: {
-      type: Object
+    if (state.notFound) {
+      const { loading, notFound } = await updateRouteData({ 
+        jss: $jss, 
+        route, 
+        commit, 
+        defaultLanguage: state.defaultLanguage 
+      })
+
+      state.loading = loading
+      state.notFound = notFound
     }
+
+    return state
   },
   created () {
     // if no existing routeData is present (from SSR), get Layout Service fetching the route data
-    if (!this.appState.routeData) {
+    if (!this.routeData) {
       this.updateRouteData()
     }
     // tell app to sync its current language with the route language
@@ -120,35 +151,22 @@ export default {
      * Loads route data from Sitecore Layout Service into appState.routeData
      */
     async updateRouteData () {
-      let sitecoreRoutePath = this.$route.params.sitecoreRoute || '/'
-      if (!sitecoreRoutePath.startsWith('/')) {
-        sitecoreRoutePath = `/${sitecoreRoutePath}`
-      }
+      const { loading, notFound } = await updateRouteData({ 
+        jss: this.$jss.store, 
+        route: this.$route, 
+        commit: this.$store.commit, 
+        defaultLanguage: this.defaultLanguage 
+      })
 
-      const language =
-        this.$route.params.lang || this.appState.sitecoreContext.language || this.defaultLanguage
-      this.loading = true
-
-      // get the route data for the new route
-      const routeData = await getRouteData(this.$jss.config, sitecoreRoutePath, language)
-      if (routeData !== null && routeData.sitecore.route) {
-        // Update the JSS store instance with the fetched data.
-        // This will signal the RouteHandler to update/re-render, as well as any components
-        // that are referencing the JSS store instance in their `data` object.
-        this.$jss.store.setSitecoreData(routeData)
-        this.notFound = false
-      } else {
-        this.$jss.store.setSitecoreData(routeData)
-        this.notFound = true
-      }
-      this.loading = false
+      this.loading = loading
+      this.notFound = notFound
     },
     /**
      * Updates the current app language to match the route data.
      */
     updateLanguage () {
       const newLanguage =
-        this.$route.params.lang || this.appState.sitecoreContext.language || this.defaultLanguage
+        this.$route.params.lang || this.$jss.store.sitecoreContext.language || this.defaultLanguage
       // `changeAppLanguage` is "inject"-ed from AppRoot
       this.changeAppLanguage(newLanguage)
     }

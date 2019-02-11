@@ -28,4 +28,5 @@ placeholders:
       # as long as the same indent is preserved at the beginning of each line, no escaping
       # is required at all in the value, making it easy to read
       content: |
-          <p>Thanks for using JSS. Here are some resources to get you started:</p>
+        <p>Thanks for using JSS.</p>
+        <a href="/sam-test">To Sam's test</a>
