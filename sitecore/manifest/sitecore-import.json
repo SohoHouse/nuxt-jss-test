@@ -76,7 +76,7 @@
                   },
                   {
                     "name": "content",
-                    "value": "<p>Thanks for using JSS. Here are some resources to get you started:</p>\n"
+                    "value": "<p>Thanks for using JSS.</p>\n<a href=\"/sam-test\">To Sam's test</a>\n"
                   }
                 ]
               },

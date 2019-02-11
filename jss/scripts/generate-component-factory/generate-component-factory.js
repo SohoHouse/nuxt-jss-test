@@ -17,7 +17,7 @@ function generateComponentFactory(componentRootPath) {
     console.debug(`Registering JSS component ${componentFile}`)
     const componentName = path.basename(componentFile, '.vue')
     const importVarName = componentName.replace(/[^\w]+/g, '')
-    imports.push(`import ${importVarName} from '../jss/components/${componentFile
+    imports.push(`import ${importVarName} from '../${componentRootPath}/${componentFile
       .replace(path.join(componentRootPath, '/'), '')
       .replace(/\\/g, '/')
       .replace('.vue', '')}';`)

@@ -38,6 +38,7 @@ module.exports = {
   ],
   jss: {
     enableProxy: process.env.ENABLE_SITECORE_PROXY,
-    sitecoreApiHost: process.env.SITECORE_API_HOST
+    sitecoreApiHost: process.env.SITECORE_API_HOST,
+    componentPath: 'sitecore/components'
   }
 }

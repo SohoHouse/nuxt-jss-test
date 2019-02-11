@@ -14,13 +14,6 @@ if (nuxt.options.dev) {
   new Builder(nuxt).build()
 }
 
-if (nuxt.options.jss && nuxt.options.jss.enableProxy) require('./sitecore-proxy')(() => {
-  consola.ready({
-    message: 'Sitecore Proxy listening',
-    badge: true
-  })
-})
-
 const server = micro(async (req, res) => {
   await dispatch()
     .dispatch('*', ['GET'], (req, res) => nuxt.render(req, res))(req, res)

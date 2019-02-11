@@ -3,8 +3,11 @@ const path = require('path')
 const chokidar = require('chokidar') // eslint-disable-line import/no-extraneous-dependencies
 const generateComponentFactory = require('./generate-component-factory')
 
-const componentFactoryPath = path.resolve(__dirname, '../../../temp/component-factory.js')
-const componentRootPath = path.resolve(__dirname, '../../components')
+const configPath = path.resolve(process.cwd(), 'nuxt.config.js')
+const { jss: config } = require(configPath)
+
+const componentFactoryPath = path.resolve(process.cwd(), 'temp/component-factory.js')
+const componentRootPath = config.componentPath || path.resolve(process.cwd(), 'sitecore/components')
 
 function writeComponentFactory() {
   const componentFactory = generateComponentFactory(componentRootPath)
