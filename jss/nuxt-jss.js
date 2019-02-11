@@ -14,14 +14,13 @@ export default function NuxtJSS(moduleOptions) {
   this.extendRoutes((routes, resolve) => {
     routes.push({
       path: `${options.routePrefix}/:sitecoreRoute*`,
-      props: route => ({ route }),
       component: resolve(__dirname, 'route-handler.vue')
     })
   })
 
   this.addPlugin({
     src: resolve(__dirname, 'plugin.js'),
-    fileName: 'nuxt-jss',
+    fileName: 'nuxt-jss.js',
     options
   })
 }

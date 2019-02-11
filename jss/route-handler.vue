@@ -1,12 +1,12 @@
 <template>
-  <h1 v-if="notFound" :context="appState.sitecoreContext" />Not Found</h1>
+  <h1 v-if="notFound">Not Found</h1>
   <h1 v-else-if="loading">Loading</h1>
-  <placeholder name="jss-main" :rendering="appState.routeData" />
+  <placeholder v-else name="jss-main" :rendering="appState.routeData" />
 </template>
 
 <script>
 import { isExperienceEditorActive, dataApi, Placeholder } from '@sitecore-jss/sitecore-jss-vue'
-import dataFetcher from '../services/data-fetcher'
+import dataFetcher from './services/data-fetcher'
 
 // Dynamic route handler for Sitecore items.
 // Because JSS app routes are defined in Sitecore, traditional static routing isn't enough -
@@ -41,8 +41,29 @@ function getRouteData (config, route, language) {
 
 export default {
   name: 'Route-Handler',
+  computed: {
+    routeFields () {
+      return this.appState.routeData && this.appState.routeData.fields || {}
+    },
+    pageTitle () {
+      if (this.notFound) return 'Page Not Found'
+      return this.routeFields.pageTitle && this.routeFields.pageTitle.value
+    },
+    pageDescription () {
+      if (this.notFound) return 'This page has not been found.'
+      return this.routeFields.pageDescription && this.routeFields.pageDescription.value
+    }
+  },
+  head () {
+    return {
+      title: this.pageTitle,
+      meta: [
+        { hid: 'description', name: 'description', content: this.pageDescription }
+      ]
+    }
+  },
   data () {
-    const state = { notFound: true, defaultLanguage: config.defaultLanguage, loading: true }
+    const state = { notFound: true, defaultLanguage: this.$jss.config.defaultLanguage, loading: true }
 
     // To take advantage of Vue's reactive data for tracking app state changes, we need
     // to reference the same `state` object that the $jss store references in order
@@ -56,7 +77,7 @@ export default {
     }
 
     // route path from vue router - if route was resolved, it's not a 404
-    if (this.route !== null) {
+    if (this.$route !== null) {
       state.notFound = false
     }
 
@@ -99,13 +120,13 @@ export default {
      * Loads route data from Sitecore Layout Service into appState.routeData
      */
     async updateRouteData () {
-      let sitecoreRoutePath = this.route.params.sitecoreRoute || '/'
+      let sitecoreRoutePath = this.$route.params.sitecoreRoute || '/'
       if (!sitecoreRoutePath.startsWith('/')) {
         sitecoreRoutePath = `/${sitecoreRoutePath}`
       }
 
       const language =
-        this.route.params.lang || this.appState.sitecoreContext.language || this.defaultLanguage
+        this.$route.params.lang || this.appState.sitecoreContext.language || this.defaultLanguage
       this.loading = true
 
       // get the route data for the new route
@@ -127,7 +148,7 @@ export default {
      */
     updateLanguage () {
       const newLanguage =
-        this.route.params.lang || this.appState.sitecoreContext.language || this.defaultLanguage
+        this.$route.params.lang || this.appState.sitecoreContext.language || this.defaultLanguage
       // `changeAppLanguage` is "inject"-ed from AppRoot
       this.changeAppLanguage(newLanguage)
     }

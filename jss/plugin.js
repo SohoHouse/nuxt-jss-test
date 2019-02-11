@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { SitecoreJssPlaceholderPlugin } from '@sitecore-jss/sitecore-jss-vue'
-import componentFactory from ''
+import componentFactory from '@@/temp/component-factory'
 
 Vue.use(SitecoreJssPlaceholderPlugin, { componentFactory })
 
@@ -13,6 +13,7 @@ const store = {
     routeData: null
   },
   setSitecoreData(sitecoreData) {
+    if (!sitecoreData) return
     const route = sitecoreData.sitecore && sitecoreData.sitecore.route
     const context = (sitecoreData.sitecore && sitecoreData.sitecore.context) || {}
 
@@ -49,7 +50,7 @@ const jssStore = {
   }
 }
 
-
 export default (ctx, inject) => {
+  Vue.prototype.$jss = jssStore
   inject('jss', jssStore)
 }

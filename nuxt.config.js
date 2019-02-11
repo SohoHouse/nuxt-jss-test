@@ -1,9 +1,22 @@
 const pkg = require('./package')
 
+const dev = process.env.NODE_ENV === 'development'
+
+if (dev) require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
   srcDir: 'client/',
+  dev,
+  devtools: true,
+  build: {
+    extend(config, { isClient }) {
+      // Extend only webpack config for client-bundle
+      if (isClient || dev) {
+        config.devtool = 'source-map'
+      }
+    }
+  },
 
   /*
   ** Headers of the page
@@ -24,6 +37,7 @@ module.exports = {
     '@@/jss/nuxt-jss'
   ],
   jss: {
-
+    enableProxy: process.env.ENABLE_SITECORE_PROXY,
+    sitecoreApiHost: process.env.SITECORE_API_HOST
   }
 }

@@ -23,8 +23,8 @@ if (!/[A-Z][A-Za-z0-9]+/.test(componentName)) {
   throw 'Component name should start with an uppercase letter and contain only letters and numbers.'
 }
 
-const componentManifestDefinitionsPath = 'sitecore/definitions/components'
-const componentRootPath = 'src/components'
+const componentManifestDefinitionsPath = path.resolve(__dirname, '../../sitecore/definitions/components')
+const componentRootPath = path.resolve(__dirname, '../components')
 
 let manifestOutputPath = null
 
@@ -66,7 +66,7 @@ if (manifestOutputPath) {
   TEMPLATING FUNCTIONS
 */
 
-function scaffoldComponent () {
+function scaffoldComponent() {
   const componentTemplate = `<template>
   <div>
     <p>${componentName} Component</p>
@@ -104,7 +104,7 @@ export default {
   return outputFilePath
 }
 
-function scaffoldManifest () {
+function scaffoldManifest() {
   const manifestTemplate = `// eslint-disable-next-line no-unused-vars
 import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-manifest';
 

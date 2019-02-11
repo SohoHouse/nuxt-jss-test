@@ -17,7 +17,7 @@
   This is used during `jss start` to pick up new or removed components at runtime.
 */
 
-const { watchComponentFactory, writeComponentFactory } = require('./writeComponentFactory')
+const { watchComponentFactory, writeComponentFactory } = require('./write-component-factory')
 
 const isWatch = process.argv.some(arg => arg === '--watch')
 

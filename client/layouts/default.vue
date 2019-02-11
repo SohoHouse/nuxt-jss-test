@@ -3,6 +3,22 @@
     <nuxt />
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    changeAppLanguage(language) {
+      // change the language here
+    }
+  },
+  provide() {
+    // Use Vue's provide/inject capabilities to "provide" functions to
+    // any descendant component that want to use/"inject" the functions.
+    return {
+      changeAppLanguage: this.changeAppLanguage,
+    }
+  }
+}
+</script>
 
 <style>
 html {

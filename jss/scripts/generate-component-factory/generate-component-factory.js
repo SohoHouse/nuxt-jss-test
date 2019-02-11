@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const { extractVueFiles } = require('./extract-vue-files')
+const extractVueFiles = require('./extract-vue-files')
 
-function generateComponentFactory (componentRootPath) {
+function generateComponentFactory(componentRootPath) {
   // by convention, we expect to find Vue components
   // * under /src/components
   // * with a .vue extension to define a component file
@@ -17,7 +17,7 @@ function generateComponentFactory (componentRootPath) {
     console.debug(`Registering JSS component ${componentFile}`)
     const componentName = path.basename(componentFile, '.vue')
     const importVarName = componentName.replace(/[^\w]+/g, '')
-    imports.push(`import ${importVarName} from '../components/${componentFile
+    imports.push(`import ${importVarName} from '../jss/components/${componentFile
       .replace(path.join(componentRootPath, '/'), '')
       .replace(/\\/g, '/')
       .replace('.vue', '')}';`)

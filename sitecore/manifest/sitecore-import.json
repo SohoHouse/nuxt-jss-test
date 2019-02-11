@@ -1,0 +1,173 @@
+{
+  "templates": [
+    {
+      "name": "App Route",
+      "fields": [
+        {
+          "name": "pageTitle",
+          "displayName": "Page Title",
+          "section": "Page Metadata",
+          "type": "Single-Line Text"
+        },
+        {
+          "name": "pageDescription",
+          "displayName": "Page Description",
+          "section": "Page Metadata",
+          "type": "Multi-Line Text"
+        }
+      ],
+      "insertOptions": [
+        "App Route"
+      ],
+      "route": false,
+      "defaultRoute": true
+    },
+    {
+      "name": "ContentBlock",
+      "icon": "Office/16x16/document_tag.png",
+      "fields": [
+        {
+          "name": "heading",
+          "type": "Single-Line Text"
+        },
+        {
+          "name": "content",
+          "type": "Rich Text"
+        }
+      ]
+    }
+  ],
+  "placeholders": [
+    {
+      "name": "jss-main"
+    },
+    {}
+  ],
+  "appName": "jss-nuxt-test",
+  "language": "en",
+  "renderings": [
+    {
+      "name": "ContentBlock",
+      "icon": "Office/16x16/document_tag.png",
+      "exposedPlaceholders": [],
+      "dataSourceTemplate": "ContentBlock"
+    }
+  ],
+  "wipeExisting": false,
+  "items": {
+    "routes": [
+      {
+        "id": "home-page",
+        "name": "home",
+        "layout": {
+          "renderings": [
+            {
+              "renderingName": "ContentBlock",
+              "placeholderKey": "/jss-main",
+              "placeholderName": "jss-main",
+              "dataSource": {
+                "name": "home-jss-main-ContentBlock-1",
+                "displayName": "ContentBlock-1",
+                "template": "ContentBlock",
+                "fields": [
+                  {
+                    "name": "heading",
+                    "value": "Welcome to Sitecore JSS"
+                  },
+                  {
+                    "name": "content",
+                    "value": "<p>Thanks for using JSS. Here are some resources to get you started:</p>\n"
+                  }
+                ]
+              },
+              "renderingParams": [],
+              "uid": "{2C4A53CC-9DA8-5F51-9D79-6EE2FC671B2D}"
+            }
+          ],
+          "placeholders": [
+            "jss-main"
+          ]
+        },
+        "fields": [
+          {
+            "name": "pageTitle",
+            "value": "Welcome to Sitecore JSS"
+          },
+          {
+            "name": "pageDescription",
+            "value": "Introduction to your Sitecore JSS app"
+          }
+        ],
+        "children": [
+          {
+            "id": "sam-test",
+            "name": "sam-test",
+            "layout": {
+              "renderings": [
+                {
+                  "renderingName": "ContentBlock",
+                  "placeholderKey": "/jss-main",
+                  "placeholderName": "jss-main",
+                  "dataSource": {
+                    "name": "sam-test-jss-main-ContentBlock-1",
+                    "displayName": "ContentBlock-1",
+                    "template": "ContentBlock",
+                    "fields": [
+                      {
+                        "name": "heading",
+                        "value": "First Block"
+                      },
+                      {
+                        "name": "content",
+                        "value": "<p>This is the first block</p>\n"
+                      }
+                    ]
+                  },
+                  "renderingParams": [],
+                  "uid": "{F9CB4316-98E4-589E-923A-8DEA757716AB}"
+                },
+                {
+                  "renderingName": "ContentBlock",
+                  "placeholderKey": "/jss-main",
+                  "placeholderName": "jss-main",
+                  "dataSource": {
+                    "name": "sam-test-jss-main-ContentBlock-2",
+                    "displayName": "ContentBlock-2",
+                    "template": "ContentBlock",
+                    "fields": [
+                      {
+                        "name": "heading",
+                        "value": "Second Block"
+                      },
+                      {
+                        "name": "content",
+                        "value": "<p>This is the second block</p>\n"
+                      }
+                    ]
+                  },
+                  "renderingParams": [],
+                  "uid": "{BA1D825D-93B5-5797-8E58-61F831EB35FE}"
+                }
+              ],
+              "placeholders": [
+                "jss-main"
+              ]
+            },
+            "fields": [
+              {
+                "name": "pageTitle",
+                "value": "This is a test"
+              },
+              {
+                "name": "pageDescription",
+                "value": "Testing testing testing testing"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nonRoutes": []
+  },
+  "dictionary": []
+}

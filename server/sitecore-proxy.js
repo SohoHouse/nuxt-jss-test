@@ -15,16 +15,25 @@ process.env.VUE_CLI_BABEL_TARGET_NODE = true;
 const fs = require('fs');
 const path = require('path');
 const { createDefaultDisconnectedServer } = require('@sitecore-jss/sitecore-jss-dev-tools');
-const config = require('../package.json').config;
+const { config } = require('../package.json')
+
+const express = require('express')
+const cors = require('cors')
+const morgan = require('morgan')
+const app = express()
+
+app.use(morgan('> [PROXY] :method :url :status :res[content-length] - :response-time ms'))
+app.use(cors({ credentials: true }))
 
 const touchToReloadFilePath = 'src/temp/config.js';
 
 const proxyOptions = {
+  server: app,
   appRoot: path.join(__dirname, '..'),
   appName: config.appName,
   watchPaths: ['./data'],
   language: config.language,
-  port: process.env.PROXY_PORT || 3042,
+  port: process.env.SITECORE_PROXY_PORT || 3042,
   compilers: ['@babel/register'],
   onManifestUpdated: (manifest) => {
     // if we can resolve the config file, we can alter it to force reloading the app automatically
@@ -40,8 +49,8 @@ const proxyOptions = {
     } else {
       console.log('Manifest data updated. Refresh the browser to see latest content!');
     }
-  },
-};
+  }
+}
 
 
 // Need to customize something that the proxy options don't support?
