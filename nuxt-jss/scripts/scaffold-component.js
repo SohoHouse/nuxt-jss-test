@@ -10,6 +10,9 @@ const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
 
+const configPath = path.resolve(process.cwd(), 'nuxt.config.js')
+const { jss: config } = require(configPath)
+
 /*
   SCAFFOLDING SCRIPT
 */
@@ -24,7 +27,7 @@ if (!/[A-Z][A-Za-z0-9]+/.test(componentName)) {
 }
 
 const componentManifestDefinitionsPath = path.resolve(__dirname, '../../sitecore/definitions/components')
-const componentRootPath = path.resolve(__dirname, '../components')
+const componentRootPath = config.componentPath || path.resolve(process.cwd(), 'sitecore/components')
 
 let manifestOutputPath = null
 

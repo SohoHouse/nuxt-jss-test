@@ -1,13 +1,54 @@
-# jss-nuxt-test
+**jss-nuxt-test** _— Test nuxt app for integrating JSS_
 
-> Test nuxt app for integrating JSS
+## Walkthrough
 
-## Milestones
+### Nuxt
+This is a new [Nuxt](https://nuxtjs.org/) app created using `create-nuxt-app`. The standard Nuxt folders can be found in `/client`.
+
+##### Configuration
+
+As much configuration as possible has been added to the `jss` property in `nuxt.config.js`.
+
+### nuxt-jss
+The `/nuxt-jss` folder contains a WIP [Nuxt Module](https://nuxtjs.org/guide/modules/) which will be extracted into an NPM module eventually.
+
+It contains all the generic javascript boilerplate that is not specific to an individual app, including:
+
+##### `index.js`
+
+The core Nuxt module. Contains logic to connect the various nuxt functionalities, including a server middleware for Disconnected Proxy, the Sitecore route, and registering the Vue plugin
+
+##### `plugin.js`
+
+A [Nuxt plugin](https://nuxtjs.org/guide/plugins/) which registers the Vuex store module for storing Sitecore route data and context. Lifted largely from the [sample Vue plugin](https://github.com/Sitecore/jss/blob/master/samples/vue/src/lib/SitecoreJssStorePlugin.js)
+
+##### `route-handler.vue`
+
+A Vue page component which handles the logic of updating the Sitecore context and routedata when the page loads, and rendering the root `jss-main` Placeholder. Refactored from the [sample route handler](https://github.com/Sitecore/jss/blob/master/samples/vue/src/RouteHandler.vue)
+
+##### `sitecore-proxy.js`
+
+Exports a small Express app to act as a proxy Sitecore Layout API when running in API mode. Unlike the sample implementation which runs a separate server, this is run as a [Nuxt Server Middleware](https://nuxtjs.org/api/configuration-servermiddleware/) when enabled.
+
+##### `scripts`
+
+Common scripts, lifted and refactored from [the sample scripts](https://github.com/Sitecore/jss/tree/master/samples/vue/scripts)
+- `generate-component-factory` generate a component factory from your app's Sitecore components (configured in `nuxt.config.js`)
+- `scaffold-component` creates a new Sitecore component and corresponding manifest definition
+
+### Sitecore
+
+Along with requiring the `nuxt-jss` module, your app will require some app-specific components and services, which by default lives in `./sitecore` (this is configurable in `nuxt.config.js`).
+
+This largely follows the [Sitecore folder in the sample app](https://github.com/Sitecore/jss/tree/master/samples/vue/sitecore), but it also includes the Vue components you want to push to Sitecore as page components (it's likely that you'll want other components that don't become useable by CMS users; these live in the traditional Nuxt `client/components` place).
+
+## Milestones
 
 - [x] Build components and manifest
 - [x] SSR working with Disconnected Sitecore Proxy server
 - [ ] Deploy & import app to Sitecore instance
 - [ ] Integrated mode with SSR inside Sitecore
+- [ ] Tooling & scripts to setup your nuxt app with required extra dir structure
 
 ## Build Setup
 
