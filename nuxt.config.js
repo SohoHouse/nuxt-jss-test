@@ -34,7 +34,7 @@ module.exports = {
   },
   loading: { color: '#fff' },
   modules: [
-    '@@/jss/nuxt-jss'
+    '@@/nuxt-jss'
   ],
   jss: {
     enableProxy: process.env.ENABLE_SITECORE_PROXY,

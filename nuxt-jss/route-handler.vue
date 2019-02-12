@@ -136,10 +136,10 @@ export default {
   created () {
     // if no existing routeData is present (from SSR), get Layout Service fetching the route data
     if (!this.routeData) {
-      this.updateRouteData()
+      this.updateRouteData(this.$route)
     }
     // tell app to sync its current language with the route language
-    this.updateLanguage()
+    this.updateLanguage(this.$route)
   },
   inject: {
     changeAppLanguage: {
@@ -150,10 +150,10 @@ export default {
     /**
      * Loads route data from Sitecore Layout Service into appState.routeData
      */
-    async updateRouteData () {
+    async updateRouteData (route) {
       const { loading, notFound } = await updateRouteData({ 
         jss: this.$jss.store, 
-        route: this.$route, 
+        route, 
         commit: this.$store.commit, 
         defaultLanguage: this.defaultLanguage 
       })
@@ -164,33 +164,25 @@ export default {
     /**
      * Updates the current app language to match the route data.
      */
-    updateLanguage () {
+    updateLanguage (route) {
       const newLanguage =
-        this.$route.params.lang || this.$jss.store.sitecoreContext.language || this.defaultLanguage
+        route.params.lang || this.$jss.store.sitecoreContext.language || this.defaultLanguage
       // `changeAppLanguage` is "inject"-ed from AppRoot
       this.changeAppLanguage(newLanguage)
     }
   },
-  watch: {
-    // watch for a change in the 'route' prop
-    route (newRoute) {
-      // if the route contains a hash value, assume the URL is a named
-      // anchor/bookmark link, e.g. /page#anchorId.
-      // in that scenario, we don't want to fetch new route data but
-      // instead allow default browser behavior.
-      if (newRoute.hash !== '') {
-        return
-      }
-      // if in experience editor - force reload instead of route data update
-      // avoids confusing Sitecore's editing JS
-      if (isExperienceEditorActive()) {
-        window.location.assign(newRoute.path)
-        return
-      }
-
-      this.updateLanguage()
-      this.updateRouteData()
+  async beforeRouteUpdate (to, from, next) {
+    if (to.hash !== '') {
+      return next()
     }
+
+    if (isExperienceEditorActive()) {
+      return window.location.assign(to.path)
+    }
+
+    this.updateLanguage(to)
+    await this.updateRouteData(to)
+    next()
   },
   components: {
     Placeholder
