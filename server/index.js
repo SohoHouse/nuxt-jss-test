@@ -2,6 +2,7 @@ const micro = require('micro')
 const consola = require('consola')
 const dispatch = require('micro-route/dispatch')
 const { Nuxt, Builder } = require('nuxt')
+const createViewRenderer = require('../nuxt-jss/create-view-renderer')
 
 // Require nuxt config
 const config = require('../nuxt.config.js')
@@ -30,3 +31,5 @@ consola.ready({
   message: `Server listening on http://${host}:${port}`,
   badge: true
 })
+
+module.exports = createViewRenderer(nuxt)
