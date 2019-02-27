@@ -85,3 +85,7 @@ sw.*
 
 # Sitecore artifacts
 temp/
+sitecore/package/
+
+scjssconfig.json
+server.bundle.js

@@ -2,9 +2,9 @@ const pkg = require('./package')
 
 const dev = process.env.NODE_ENV === 'development'
 
-if (dev) require('dotenv').config()
+const { sitecore: scjssConfig, enableProxy } = require('./scjssconfig.json')
 
-module.exports = {
+const config = {
   mode: 'universal',
   srcDir: 'client/',
   dev,
@@ -17,10 +17,6 @@ module.exports = {
       }
     }
   },
-
-  /*
-  ** Headers of the page
-  */
   head: {
     title: pkg.name,
     meta: [
@@ -37,8 +33,11 @@ module.exports = {
     '@@/nuxt-jss'
   ],
   jss: {
-    enableProxy: process.env.ENABLE_SITECORE_PROXY,
-    sitecoreApiHost: process.env.SITECORE_API_HOST,
+    enableProxy,
+    sitecoreApiHost: scjssConfig.layoutServiceHost,
+    sitecoreApiKey: scjssConfig.apiKey,
     componentPath: 'sitecore/components'
   }
 }
+
+module.exports = config

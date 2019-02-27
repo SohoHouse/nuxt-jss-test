@@ -1,5 +1,4 @@
 import { resolve } from 'path'
-import createSitecoreProxy from './sitecore-proxy'
 import consola from 'consola'
 
 const defaultOptions = {
@@ -14,7 +13,7 @@ export default async function NuxtJSS(moduleOptions) {
   const options = Object.assign(defaultOptions, this.options.jss, moduleOptions)
 
   if (options.enableProxy) {
-    const handler = await createSitecoreProxy()
+    const handler = await require('./sitecore-proxy')()
     this.addServerMiddleware({ path: '__jss_proxy', handler })
 
     const { https, port, host } = this.nuxt.options.server

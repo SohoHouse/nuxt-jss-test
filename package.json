@@ -15,22 +15,23 @@
     "language": "en"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --inspect server/index.js --watch server",
-    "build": "nuxt build",
-    "start": "NODE_ENV=production node server/index.js",
-    "generate": "nuxt generate"
+    "dev": "NODE_ENV=development nuxt",
+    "build": "npm run build:server && npm run build:nuxt",
+    "build:server": "webpack --config ./server/bundle.config.js",
+    "build:nuxt": "NODE_ENV=production nuxt build",
+    "start": "NODE_ENV=production nuxt start",
+    "test": "jest"
   },
   "dependencies": {
     "@sitecore-jss/sitecore-jss": "^11.0.2",
     "@sitecore-jss/sitecore-jss-vue": "^11.0.2",
     "axios": "^0.18.0",
-    "dotenv": "^6.2.0",
-    "micro": "^9.3.3",
-    "micro-route": "^2.5.0",
-    "nuxt": "^2.4.0"
+    "nuxt-start": "^2.4.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
     "@sitecore-jss/sitecore-jss-cli": "^11.0.2",
     "@sitecore-jss/sitecore-jss-manifest": "^11.0.2",
@@ -38,7 +39,31 @@
     "@sitecore-jss/sitecore-jss-update-package": "^11.0.2",
     "@sitecore-jss/sitecore-pipelines": "^11.0.2",
     "cors": "^2.8.5",
+    "jest": "^24.0.0-alpha.16",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "nuxt": "^2.4.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/test/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/fixture/"
+    ],
+    "testEnvironment": "node"
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-runtime"
+        ],
+        "presets": [
+          "@babel/preset-env"
+        ]
+      }
+    }
   }
 }
