@@ -10,7 +10,7 @@ const storeModule = {
   namespaced: true,
   state: () => ({
     sitecoreContext: {
-      pageEditing: false
+      pageEditing: false,
     },
     routeData: null,
     config: {
@@ -46,7 +46,12 @@ Vue.mixin({
   })
 })
 
-export default ({ store }, inject) => {
+export default ({ store, req }, inject) => {
   if (!store) return
+
   store.registerModule('jss', storeModule)
+
+  if (!req) return
+  const { sitecoreData } = req
+  store.commit('jss/setSitecoreData', sitecoreData)
 }

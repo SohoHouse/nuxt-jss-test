@@ -16,9 +16,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development nuxt",
-    "build": "npm run build:server && npm run build:nuxt",
-    "build:server": "webpack --config ./server/bundle.config.js",
-    "build:nuxt": "NODE_ENV=production nuxt build",
+    "build": "NODE_ENV=production nuxt build",
     "start": "NODE_ENV=production nuxt start",
     "test": "jest"
   },
@@ -41,8 +39,10 @@
     "cors": "^2.8.5",
     "jest": "^24.0.0-alpha.16",
     "morgan": "^1.9.1",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.18.9",
-    "nuxt": "^2.4.0"
+    "nuxt": "^2.4.0",
+    "sass-loader": "^7.1.0"
   },
   "jest": {
     "testMatch": [

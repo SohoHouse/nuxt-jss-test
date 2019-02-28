@@ -1,0 +1,247 @@
+//-------------------------------------------------------------------
+// Typography
+//-------------------------------------------------------------------
+
+@import './_typography_functions';
+@import './variables';
+
+// Font Families
+//-------------------------------------------------------------------
+$f-family-serif: 'KingsCaslon-Regular', Baskerville, serif;
+$f-family-sans: 'Gotham SSm A', 'Gotham SSm B', 'Gill Sans', Helvetica, sans-serif;
+
+// Line heights
+//-------------------------------------------------------------------
+
+$line-height-single: 1;
+$line-height-small:  1.2;
+$line-height-normal: 1.6;
+$line-height-large:  1.8;
+
+// Font Scale and Sizes
+//-------------------------------------------------------------------
+
+$f-base: 16px;
+
+$f-size-xx-huge: rem(104px);
+$f-size-x-huge:  rem(56px);
+$f-size-huge:    rem(40px);
+$f-size-xx-lrg:  rem(32px);
+$f-size-x-lrg:   rem(24px);
+$f-size-lrg:     rem(18px);
+$f-size-med:     rem(16px);
+$f-size-sml:     rem(14px);
+$f-size-x-sml:   rem(12px);
+$f-size-xx-sml:  rem(10px);
+
+@mixin f-size-xx-huge
+{ font-size: $f-size-xx-huge; }
+@mixin f-size-x-huge
+{ font-size: $f-size-x-huge; }
+@mixin f-size-huge
+{ font-size: $f-size-huge; }
+@mixin f-size-xx-lrg
+{ font-size: $f-size-xx-lrg; }
+@mixin f-size-x-lrg
+{ font-size: $f-size-x-lrg; }
+@mixin f-size-lrg
+{ font-size: $f-size-lrg; }
+@mixin f-size-med
+{ font-size: $f-size-med; }
+@mixin f-size-sml
+{ font-size: $f-size-sml; }
+@mixin f-size-x-sml
+{ font-size: $f-size-x-sml; }
+@mixin f-size-xx-sml
+{ font-size: $f-size-xx-sml; }
+
+
+// Font Weights
+//-------------------------------------------------------------------
+
+$f-weight-regular:     400;
+$f-weight-medium:      500;
+$f-weight-semi-bold:   600;
+
+
+// Font Colours
+//-------------------------------------------------------------------
+
+@mixin f-color-normal
+{ color: $f-color-normal; }
+@mixin f-color-dark
+{ color: $f-color-dark; }
+@mixin f-color-highlight
+{ color: $f-color-highlight; }
+@mixin f-color-light
+{ color: $f-color-light; }
+@mixin f-color-white
+{ color: $f-color-white; }
+
+
+//-------------------------------------------------------------------
+//
+// Font Styles Primitives
+//-------------------------------------------------------------------
+
+// Titles
+//-------------------------------------------------------------------
+
+@mixin title-hero {
+  @include f-size-x-huge;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-small;
+}
+
+@mixin title-x-lrg {
+  @include f-size-huge;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-medium;
+  line-height: $line-height-small;
+}
+
+@mixin title-lrg {
+  @include f-size-xx-lrg;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-medium;
+  line-height: $line-height-small;
+}
+
+@mixin title-med {
+  @include f-size-x-lrg;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-medium;
+  line-height: $line-height-small;
+}
+
+@mixin title-med-alt {
+  @include f-size-x-lrg;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-medium;
+  line-height: $line-height-small;
+  font-style: italic;
+}
+
+@mixin title-sml {
+  @include f-size-med;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-normal;
+}
+
+// Body
+//-------------------------------------------------------------------
+
+@mixin body-x-lrg {
+  @include f-size-lrg;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-normal;
+}
+
+@mixin body-lrg {
+  @include f-size-med;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-normal;
+}
+
+@mixin body-med {
+  @include f-size-sml;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-normal;
+}
+
+@mixin body-sml {
+  @include f-size-x-sml;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-normal;
+}
+
+@mixin body-x-sml {
+  @include f-size-xx-sml;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-normal;
+}
+
+// Labels
+//-------------------------------------------------------------------
+
+@mixin label-lrg {
+  @include f-size-lrg;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-medium;
+  line-height: $line-height-small;
+}
+
+@mixin label-med {
+  @include f-size-sml;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-medium;
+  line-height: $line-height-small;
+}
+
+@mixin label-med-heavy {
+  @include f-size-sml;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-semi-bold;
+  line-height: $line-height-small;
+}
+
+@mixin label-sml {
+  @include f-size-sml;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-semi-bold;
+  line-height: $line-height-small;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@mixin label-x-sml {
+  @include f-size-x-sml;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-semi-bold;
+  line-height: $line-height-small;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@mixin label-xx-sml {
+  @include f-size-xx-sml;
+  font-family: $f-family-sans;
+  font-weight: $f-weight-semi-bold;
+  line-height: $line-height-small;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+// Fancy Labels
+//-------------------------------------------------------------------
+
+@mixin label-serif-lrg {
+  @include f-size-lrg;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-semi-bold;
+  line-height: $line-height-small;
+  font-style: italic;
+}
+
+@mixin label-serif-med {
+  @include f-size-sml;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-regular;
+  line-height: $line-height-small;
+  font-style: italic;
+}
+
+@mixin label-serif-sml {
+  @include f-size-x-sml;
+  font-family: $f-family-serif;
+  font-weight: $f-weight-semi-bold;
+  line-height: $line-height-small;
+  font-style: italic;
+}

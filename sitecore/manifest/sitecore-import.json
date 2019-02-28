@@ -35,6 +35,28 @@
           "type": "Rich Text"
         }
       ]
+    },
+    {
+      "name": "NoteDetails",
+      "icon": "Office/16x16/document_tag.png",
+      "fields": [
+        {
+          "name": "title",
+          "type": "Single-Line Text"
+        },
+        {
+          "name": "shortDescription",
+          "type": "Single-Line Text"
+        },
+        {
+          "name": "mainImage",
+          "type": "Image"
+        },
+        {
+          "name": "author",
+          "type": "Single-Line Text"
+        }
+      ]
     }
   ],
   "placeholders": [
@@ -51,6 +73,18 @@
       "icon": "Office/16x16/document_tag.png",
       "exposedPlaceholders": [],
       "dataSourceTemplate": "ContentBlock"
+    },
+    {
+      "name": "HouseNotes",
+      "displayName": "HouseNotes",
+      "exposedPlaceholders": [],
+      "dataSourceTemplate": ""
+    },
+    {
+      "name": "NoteDetails",
+      "icon": "Office/16x16/document_tag.png",
+      "exposedPlaceholders": [],
+      "dataSourceTemplate": "NoteDetails"
     }
   ],
   "wipeExisting": false,
@@ -100,6 +134,56 @@
         ],
         "children": [
           {
+            "id": "example-note",
+            "name": "house-note",
+            "layout": {
+              "renderings": [
+                {
+                  "renderingName": "NoteDetails",
+                  "placeholderKey": "/jss-main",
+                  "placeholderName": "jss-main",
+                  "dataSource": {
+                    "name": "house-note-jss-main-NoteDetails-1",
+                    "displayName": "NoteDetails-1",
+                    "template": "NoteDetails",
+                    "fields": [
+                      {
+                        "name": "mainImage",
+                        "value": {
+                          "src": "/data/media/img/00-Main-Image-Jack-Guinness-360-Me-CREDIT-Pal-Hanson-Getty.jpg",
+                          "alt": "SOHO Logo"
+                        }
+                      },
+                      {
+                        "name": "title",
+                        "value": "Meet the Locals: Olivia Lopez's Downtown LA"
+                      },
+                      {
+                        "name": "shortDescription",
+                        "value": "Straddling East and West, and built on seven hills, Istanbul is a city of spectacular views. Soho House Istanbul member Louise Persson shares ten of the best vantage points worth getting on a plane for"
+                      },
+                      {
+                        "name": "author",
+                        "value": "By Charlotte Steinway"
+                      }
+                    ]
+                  },
+                  "renderingParams": [],
+                  "uid": "{E4124486-10CF-5D21-9458-1EBC3A6F1166}"
+                }
+              ],
+              "placeholders": [
+                "jss-main"
+              ]
+            },
+            "fields": [
+              {
+                "name": "pageTitle",
+                "value": "Our new page"
+              }
+            ]
+          },
+          {
             "id": "sam-test",
             "name": "sam-test",
             "layout": {
@@ -141,7 +225,7 @@
                       },
                       {
                         "name": "content",
-                        "value": "<p>This is the second block</p>\n"
+                        "value": "<p>This is the second block</p>\n<a href=\"/\">Back</a>\n"
                       }
                     ]
                   },

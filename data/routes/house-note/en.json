@@ -1,0 +1,22 @@
+{
+  "id": "example-note",
+  "fields": {
+    "pageTitle": "Our new page"
+  },
+  "placeholders": {
+    "jss-main": [
+      {
+        "componentName": "NoteDetails",
+        "fields": {
+          "mainImage": {
+            "src": "/data/media/img/00-Main-Image-Jack-Guinness-360-Me-CREDIT-Pal-Hanson-Getty.jpg",
+            "alt": "SOHO Logo"
+          },
+          "title": "Meet the Locals: Olivia Lopez's Downtown LA",
+          "shortDescription": "Straddling East and West, and built on seven hills, Istanbul is a city of spectacular views. Soho House Istanbul member Louise Persson shares ten of the best vantage points worth getting on a plane for",
+          "author": "By Charlotte Steinway"
+        }
+      }
+    ]
+  }
+}

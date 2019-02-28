@@ -1,0 +1,162 @@
+@import './variables';
+@import './typography';
+
+
+// Breakpoints
+//-------------------------------------------------------------------
+@mixin breakpoint($point) {
+  @if $point == medium {
+    @media (min-width: $bp-med) { @content ; }
+  }
+  @else if $point == large {
+    @media (min-width: $bp-large) { @content ; }
+  }
+
+  @else if $point == x-large {
+    @media (min-width: $bp-x-large) { @content ; }
+  }
+
+  @else if $point == small {
+    @media (min-width: $bp-small) { @content ; }
+  }
+
+    // This shouldn't be relied on.  Style up, not down.
+  @else if $point == smallonly {
+    @media (max-width: $bp-small)  { @content ; }
+  }
+}
+
+
+@mixin shadow($style: lifted, $shadow-color: $grey-xx-dark) {
+
+  @if $style == "sunken" {
+    box-shadow: inset 0 1px 2px rgba($shadow-color, .2), 0 1px 1px rgba($white, .8);
+  }
+
+  @else if $style == "sitting" {
+    box-shadow: 0 1px 4px 0 rgba($shadow-color, .1), 0 1px 2px 0 rgba($shadow-color, .1);
+  }
+
+  @else if $style == "lifted" {
+    box-shadow: 0 2px 10px 0 rgba($shadow-color, .2), 0 4px 8px 0 rgba($shadow-color, .1);
+  }
+
+  @else if $style == "floating" {
+    box-shadow: 0 20px 30px -20px rgba($shadow-color, .2), 0 20px 40px 0 rgba($shadow-color, .2);
+  }
+
+  @else if $style == "flying" {
+    box-shadow: 0 40px 30px -40px rgba($shadow-color, .1), 0 60px 80px 0 rgba($shadow-color, .1);
+  }
+
+  @else if $style == "flyingPink" {
+    box-shadow: 0 40px 30px -40px rgba($shadow-color, .1), 0 60px 80px 0 rgba($brand-soho-dark, .1);
+  }
+}
+
+
+// Functions
+//-------------------------------------------------------------------
+
+@mixin ratio($width, $height) {
+  &:before {
+    content: "";
+    display: block;
+    padding-top: #{($height / $width) * 100%};
+  }
+}
+
+@mixin placeholder-image() {
+  background-image: url('~/assets/images/placeholder.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+// WCAG
+//-------------------------------------------------------------------
+
+@mixin visually-hidden() {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+// Containers
+//-------------------------------------------------------------------
+@mixin container-dark-gradient() {
+  background-image: linear-gradient(to top, #434b59, $grey-xx-dark);
+  box-shadow: 0 1px 1px 0 rgba(255, 255, 255, 0.5), inset 0 1px 3px 0 rgba(99, 106, 118, 0.2);
+}
+
+@mixin container-grey() {
+  background-color: rgba(99, 106, 118, 0.1);
+  box-shadow: 0 1px 0 0 $white, inset 0 1px 2px 0 rgba(99, 106, 118, 0.15);
+}
+
+@mixin container-gold() {
+  background-color: $white;
+  border: solid 2px #ffc700;
+}
+
+@mixin container-blur() {
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
+  background-color: rgba(247, 248, 250, 0.8);
+}
+
+@mixin container-dark() {
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
+  background-color: rgba(23, 28, 38, 0.8);
+}
+
+@mixin border-small() {
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px #cdcdcf;
+}
+
+@mixin border-medium() {
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 4px rgba($brand-soho, 0.3);
+}
+
+@mixin border-large() {
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 12px rgba($brand-soho, 0.3);
+}
+
+@mixin horizontal-lines() {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  &:before, &:after {
+    content: "";
+    display: inline;
+    flex-grow: 1;
+    border-bottom: $line-medium;
+    @include transition-slow;
+  }
+  &:before {
+    margin-right: $d-x-small;
+  }
+  &:after {
+    margin-left: $d-x-small;
+  }
+}
+
+@function randomColor() {
+  $r: random(256);
+  $g: random(256);
+  $b: random(256);
+
+  @return rgba($r, $g, $b, .8);
+}
+
+@mixin debugBox {
+  border: 1px solid randomColor();
+}

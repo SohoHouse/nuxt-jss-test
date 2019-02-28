@@ -1,0 +1,264 @@
+//-------------------------------------------------------------------
+// Dimensions
+//-------------------------------------------------------------------
+
+$d-base: 8px;
+
+$d-tiny: $d-base;
+$d-xx-small: $d-base * 1.5;
+$d-x-small: $d-base * 2;
+$d-small: $d-base * 3;
+$d-med-small: $d-base * 4;
+$d-med: $d-base * 5;
+$d-med-large: $d-base * 6;
+$d-large: $d-base * 7;
+$d-x-large: $d-base * 8;
+$d-xx-large: $d-base * 10;
+$d-xxx-large: $d-base * 12;
+$d-huge: $d-base * 20;
+
+$navbar-height: $d-base * 8;
+$page-width: 1280px;
+
+
+//-------------------------------------------------------------------
+// Colors
+//-------------------------------------------------------------------
+
+// Greyscale
+//-------------------------------------------------------------------
+
+$white: #ffffff;
+$grey-xx-light: #f2f2f5;
+$grey-x-light: #e6e6e7;
+$grey-light: #cdcdcf;
+$grey-medium-light: #9b9c9e;
+$grey-medium: #787a80;
+$grey-medium-dark: #5c5e66;
+$grey-dark: #42454e;
+$grey-x-dark: #2c303a;
+$grey-xx-dark: #171c26;
+$black: #000000;
+
+// Brand
+//-------------------------------------------------------------------
+
+$brand-soho: #c96d61;
+$brand-primary: #475e6e;
+$brand-secondary: #476c87;
+$brand-tertiary: #7097b3;
+$brand-soho-light: #f9f0ef;
+$brand-soho-dark: #442323;
+$brand-house-notes-light: #faf7fb;
+$brand-pale-grey: #fafbfc;
+
+// Utility
+//-------------------------------------------------------------------
+
+$color-ui-focus: #D2E7F7;
+$color-ui-focus-glow: #A1D2F7;
+$color-ui-success: #9bc24e;
+$color-ui-error: #c43745;
+
+// Transparent Colors
+//-------------------------------------------------------------------
+$translucent9: rgba($white, 0.9);
+$overlay-color: rgba($grey-xx-light, 0.75);
+
+// Font
+//------------------------------------------------------------------
+$f-color-white: $white;
+$f-color-light: $grey-light;
+$f-color-normal: $grey-medium-dark;
+$f-color-dark: $grey-xx-dark;
+$f-color-highlight: $brand-secondary;
+
+
+// Event Status Colours
+//------------------------------------------------------------------
+
+$statuses: (
+        waiting: #f4dd8b,
+        booked: #cc6f75,
+        closed: #cc6f75,
+        opens: #77bbe0,
+        past: #9b9c9e,
+        members: #cc6f75,
+        postponed: #f4a35f
+);
+
+// Houses
+//------------------------------------------------------------------
+$houses: (
+        greekstreet: (
+                house: #5a2049,
+                dark: #5a2049,
+                light: #ece8eb
+        ),
+        deanstreet: (
+                house: #94a8b3,
+                dark: #5b7a8c,
+                light: #f4f6f7
+        ),
+        highroad: (
+                house: #759c9d,
+                dark: #567c7d,
+                light: #f0f4f4
+        ),
+        littlehouse: (
+                house: #153643,
+                dark: #153643,
+                light: #eceeef
+        ),
+        shoreditch: (
+                house: #9c1a38,
+                dark: #9c1a38,
+                light: #f6edee
+        ),
+        babington: (
+                house: #0a3c2e,
+                dark: #0a3c2e,
+                light: #eceeed
+        ),
+        electric: (
+                house: #3c557c,
+                dark: #3c557c,
+                light: #ebedf1
+        ),
+        berlin: (
+                house: #cd6e27,
+                dark: #ba5c14,
+                light: #f7efec
+        ),
+        miamibeach: (
+                house: #54bbc3,
+                dark: #298187,
+                light: #e9f7f8
+        ),
+        istanbul: (
+                house: #bd8b47,
+                dark: #807557,
+                light: #f6f5f3
+        ),
+        farmhouse: (
+                house: #7f9c91,
+                dark: #5f7a70,
+                light: #f2f5f3
+        ),
+        barcelona: (
+                house: #c96d61,
+                dark: #b8584d,
+                light: #f9f0ef
+        ),
+        newyork: (
+                house: #859287,
+                dark: #6c786e,
+                light: #f6f6f6
+        ),
+        chicago: (
+                house: #708690,
+                dark: #627a85,
+                light: #f1f4f5
+        ),
+        toronto: (
+                house: #24a689,
+                dark: #19856d,
+                light: #e5f6f3
+        ),
+        westhollywood: (
+                house: #486729,
+                dark: #486729,
+                light: #f0f2ee
+        ),
+        littlebeach: (
+                house: #5c6670,
+                dark: #5c6670,
+                light: #eeeff0
+        ),
+        ludlow: (
+                house: #a89f87,
+                dark: #807557,
+                light: #f6f5f3
+        )
+);
+
+
+
+//-------------------------------------------------------------------
+// Lines
+//-------------------------------------------------------------------
+
+$line-light: 1px solid rgba($grey-light, 0.4);
+$line-medium: 1px solid rgba($grey-medium, 0.3);
+$line-dark: 1px solid rgba($grey-x-dark, 0.4);
+$line-focus: 1px solid $brand-tertiary;
+
+//-------------------------------------------------------------------
+// Breakpoints
+//-------------------------------------------------------------------
+$bp-x-large: 96em;
+$bp-large: 72em;
+$bp-med: 48em;
+$bp-small: 32em;
+
+
+//-------------------------------------------------------------------
+// Motion
+//-------------------------------------------------------------------
+
+// Timing and Easings
+//-------------------------------------------------------------------
+
+// t stands for Timing
+$t        : .35s;
+$t-snap   : cubic-bezier(.3, .9, .4, .98);
+$t-drift  : cubic-bezier(.05,.31,.7,1);
+
+// Transitions
+//-------------------------------------------------------------------
+
+@mixin transition-slow($properties:all){
+  transition: $properties $t*1.2 $t-drift;
+}
+
+@mixin transition-fast($properties:all){
+  transition: $properties $t $t-snap;
+}
+
+// Animations
+//-------------------------------------------------------------------
+
+@keyframes kenburns {
+  0% {
+    transform-origin: 10% 30%;
+    transform: scale(1);
+  }
+  50%{
+    transform-origin: 50% 50%;
+    transform: scale(1.2);
+  }
+  100% {
+    transform-origin: 80% 90%;
+    transform: scale(1);
+  }
+}
+
+
+// Lazy Load Transitions
+//-------------------------------------------------------------------
+
+@mixin lazy-load() {
+  @include placeholder-image();
+  &[lazy=loaded] {
+    animation: fade $t*5;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

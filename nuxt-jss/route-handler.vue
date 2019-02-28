@@ -1,7 +1,7 @@
 <template>
   <h1 v-if="notFound">Not Found</h1>
   <h1 v-else-if="loading">Loading</h1>
-  <placeholder v-else name="jss-main" :rendering="routeData" />
+  <placeholder v-else name="jss-main" :rendering="routeData" :componentFactory="$jss.componentFactory"/>
 </template>
 
 <script>

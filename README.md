@@ -1,5 +1,13 @@
 **jss-nuxt-test** _— Test nuxt app for integrating JSS_
 
+## Components
+
+- **`./nuxt-jss`** Designed to be a portable Nuxt module which should not contain any app-specific code and should probably be an external module.
+
+- **`./client`** All non-sitecore related code, a.k.a. your average nuxt source directory.
+
+- **`./sitecore`** Containing all sitecore related code which is specific to your application, including JSS components and component definitions, configuration, etc.
+
 ## Walkthrough
 
 ### Nuxt
@@ -46,7 +54,7 @@ This largely follows the [Sitecore folder in the sample app](https://github.com/
 
 - [x] Build components and manifest
 - [x] SSR working with Disconnected Sitecore Proxy server
-- [ ] Deploy & import app to Sitecore instance
+- [x] Deploy & import app to Sitecore instance
 - [ ] Integrated mode with SSR inside Sitecore
 - [ ] Tooling & scripts to setup your nuxt app with required extra dir structure
 
