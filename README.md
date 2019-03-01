@@ -8,6 +8,14 @@
 
 - **`./sitecore`** Containing all sitecore related code which is specific to your application, including JSS components and component definitions, configuration, etc.
 
+## Get Setup
+
+1. Install dependencies: `npm i`
+2. Configure JSS: `jss setup` (get these values from a human)
+3. Add top level `enableProxy` to the resulting `scjssconfig.json` to enable Disconnected Proxy
+4. Add Sitecore components, component definitions and configuration to `./sitecore`
+5. Create disconnected content in `./data`
+
 ## Walkthrough
 
 ### Nuxt
@@ -15,7 +23,7 @@ This is a new [Nuxt](https://nuxtjs.org/) app created using `create-nuxt-app`. T
 
 ##### Configuration
 
-As much configuration as possible has been added to the `jss` property in `nuxt.config.js`.
+As much configuration as possible should be added to `scjssconfig.json` file in the root, as this is required for the `jss` libraries to function.
 
 ### nuxt-jss
 The `/nuxt-jss` folder contains a WIP [Nuxt Module](https://nuxtjs.org/guide/modules/) which will be extracted into an NPM module eventually.
